@@ -1,0 +1,9 @@
+FROM python:3.10-slim
+
+COPY requirements.txt .
+
+run pip install -r requirements.txt
+
+COPY hello.py . 
+
+CMD [ "python3", "-c", "print('Hello World!')" ]

@@ -6,6 +6,16 @@ This repository contains an introductory guide to Python and its most commonly u
 1. **Introduction to Python**  
    Basic Python programming concepts, including variables, data types, loops, conditionals, functions, and more. Designed to get you familiar with Python as a programming language.
 
+   ##  HOW DO I ACTIVATE CONDA ON VSC?
+
+   Open Terminal in VSC: View > Terminal or use Ctrl + 
+   1. Activate Conda Environment:conda activate your_env_name
+   2. Set Python Interpreter:
+Click on the Python interpreter in the bottom left.
+Select your Conda environment.
+   3. Verify: python --version
+
+
 2. **Introduction to NumPy**  
    Learn the fundamentals of NumPy, the library for numerical computing. This section covers arrays, operations on arrays, and key functions that enable efficient mathematical calculations.
 
