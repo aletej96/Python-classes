@@ -1,0 +1,12 @@
+#ignore sensitive data 
+
+Data/
+
+#ml ignores
+mlruns/
+mlartifacts/
+
+# sensitive_data.py
+USERNAME = "usuario1"
+PASSWORD = "C0d35p4ce."
+LOCATION = (36.721477644071705, -4.363132134392174)

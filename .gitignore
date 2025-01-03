@@ -1,8 +1,0 @@
-#ignore sensitive data 
-
-Data/
-
-#ml ignores
-mlruns/
-mlartifacts/
-
