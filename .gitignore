@@ -6,3 +6,7 @@ Data/
 mlruns/
 mlartifacts/
 
+# sensitive_data.py
+USERNAME
+PASSWORD
+LOCATION 
