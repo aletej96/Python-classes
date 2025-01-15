@@ -63,10 +63,58 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
 5. **Introduction to Scikit-learn**  
    Dive into machine learning with Scikit-learn. This section introduces basic concepts of supervised and unsupervised learning, model training, and evaluation using popular algorithms.
 
-6. **Kaggle Challenge**  
-   Apply your skills to a real-world dataset challenge on Kaggle. You will use the tools and techniques from the previous sections to analyze and build models for a data science competition.
+6. **Intro to MLflow**
+   This section introduces MLflow, a platform to manage the machine learning lifecycle, including experimentation, reproducibility, and deployment. Learn how to track experiments, package code into reusable components, and deploy machine learning models.
 
-7. **Dockerización**  
+   ### Install MLflow
+   - To install MLflow, use pip:
+     ```bash
+     pip install mlflow
+     ```
+
+   ### Getting Started with MLflow
+   - **Activate MLflow**:
+     ```bash
+     mlflow start
+     ```
+   - **Set the MLflow Tracking URI**:
+     ```python
+     import mlflow
+     mlflow.set_tracking_uri("http://localhost:5000")
+     ```
+   - **Run an Experiment**:
+     ```python
+     with mlflow.start_run():
+         mlflow.log_metric("key_metric", value)
+         mlflow.log_param("parameter", value)
+     ```
+   - **Start the MLflow Tracking Server**:
+     ```bash
+     mlflow ui
+     ```
+   - This will open the MLflow Tracking UI in your web browser at `http://localhost:5000`, where you can view and compare all your experiments.
+
+   ### Install Additional Dependencies
+   - To ensure all dependencies are installed, you can use the following pip command:
+     ```bash
+     pip install numpy pandas scikit-learn
+     ```
+
+   ### Set Up MLflow Backend (Optional)
+   - If you want to use a remote server or a database as a backend for MLflow, configure the MLflow tracking URI to point to your server:
+     ```python
+     mlflow.set_tracking_uri("your_server_uri")
+     ```
+
+   ### Example Usage
+   - Here’s a simple example of logging a parameter and a metric in MLflow:
+     ```python
+     with mlflow.start_run():
+         mlflow.log_param("param_name", "param_value")
+         mlflow.log_metric("metric_name", 0.95)
+     ```
+
+7. **Dockerization**  
    This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a brief description of how to build and run the Docker container.
 
    ### How to Build and Run the Docker Container
@@ -87,10 +135,3 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
    - Extracting and preprocessing data.
    - Building and saving a machine learning pipeline using MLflow.
    - Deploying the pipeline for future use.
-
----
-
-## Contributing
-If you would like to contribute to this project, please follow these steps:
-1. Fork the repository.
-2. Create a new branch
