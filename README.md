@@ -44,7 +44,11 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
      ```bash
      conda deactivate
      ```
-
+7. **Install our Requierements.txt (important)**:
+   - To activate our libraries such as pandas, matplotlib, scykit-learn, we run:
+  ```bash
+   pip install -r requirements.txt
+   ```
 ---
 
 ## Table of Contents
