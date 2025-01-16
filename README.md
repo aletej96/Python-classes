@@ -79,7 +79,7 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
    ### Getting Started with MLflow
    - **Activate MLflow**:
      ```bash
-     mlflow start
+     mlflow server
      ```
    - **Set the MLflow Tracking URI**:
      ```python
