@@ -119,23 +119,126 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
      ```
 
 7. **Dockerization**  
-   This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a brief description of how to build and run the Docker container.
+   This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a detailed description of how to build and run the Docker container.
 
    ### How to Build and Run the Docker Container
+   - **Create the `Dockerfile`**:  
+     The `Dockerfile` contains the instructions to build the Docker image. Here’s an example:
+     ```dockerfile
+     FROM python:3.11.11-slim
+
+     # Install required dependencies
+     RUN pip install --upgrade pip && pip install mlflow scikit-learn pandas numpy
+
+     # Copy your project files (adjust paths as necessary)
+     COPY ./exported_model /model
+
+     # Serve the ML model using MLflow
+     CMD ["mlflow", "models", "serve", "-m", "/model", "-h", "0.0.0.0", "-p", "5000"]
+     ```
+
    - **Build the Docker image**:
      ```bash
-     docker build -t nombre_de_tu_imagen .
+     docker build -t my-ml-model .
      ```
+
    - **Run the Docker container**:
      ```bash
-     docker run nombre_de_tu_imagen
+     docker run -p 5001:5000 my-ml-model
      ```
 
-   The `Dockerfile` uses a Python 3.10 slim image, installs dependencies from `requirements.txt`, and runs a simple Python script.
+   - **Test the Model API**:  
+     Once the container is running, you can send a request to the model API:
+     ```bash
+     curl -X POST http://localhost:5001/invocations \
+          -H "Content-Type: application/json" \
+          -d '{"columns":["feature1", "feature2"], "data":[[value1, value2]]}'
+     ```
 
-8. **Database Connection and MLOps Pipeline**  
-   In this section, you will find a notebook that demonstrates how to connect to a database, extract data, and create a machine learning pipeline. The pipeline is saved using MLOps practices, ensuring reproducibility and scalability. This notebook covers:
-   - Connecting to a database using SQLAlchemy or PyMySQL.
-   - Extracting and preprocessing data.
-   - Building and saving a machine learning pipeline using MLflow.
-   - Deploying the pipeline for future use.
+8. **How to Build and Call an API**  
+   This section demonstrates how to create a simple API using Flask and interact with it.
+
+   ### Create the API
+   - Below is an example of a simple Flask API to serve predictions from a machine learning model:
+     ```python
+     from flask import Flask, request, jsonify
+     import joblib  # Load your trained model
+
+     app = Flask(__name__)
+
+     # Load the model
+     model = joblib.load("path/to/your/model.pkl")
+
+     @app.route('/predict', methods=['POST'])
+     def predict():
+         data = request.get_json()
+         predictions = model.predict(data["inputs"])
+         return jsonify({"predictions": predictions.tolist()})
+
+     if __name__ == "__main__":
+         app.run(host="0.0.0.0", port=5000)
+     ```
+
+   ### Run the API
+   - Save the file as `app.py` and run it:
+     ```bash
+     python app.py
+     ```
+
+   ### Test the API
+   - Use `curl` to send a POST request to the API:
+     ```bash
+     curl -X POST http://localhost:5000/predict \
+          -H "Content-Type: application/json" \
+          -d '{"inputs": [[5.1, 3.5, 1.4, 0.2]]}'
+     ```
+
+   - Alternatively, use Python to send the request:
+     ```python
+     import requests
+
+     url = "http://localhost:5000/predict"
+     data = {"inputs": [[5.1, 3.5, 1.4, 0.2]]}
+     response = requests.post(url, json=data)
+     print(response.json())
+     ```
+
+9. **Database Connection and MLOps Pipeline**  
+   This section demonstrates how to connect to a database, extract data, and create a machine learning pipeline. The pipeline is saved using MLOps practices, ensuring reproducibility and scalability.
+
+   ### Steps to Build the Pipeline
+   - **Step 1:** Connect to a database using SQLAlchemy or PyMySQL.
+   - **Step 2:** Extract and preprocess data (e.g., cleaning, normalization, handling missing values).
+   - **Step 3:** Train a machine learning model using libraries like Scikit-learn.
+   - **Step 4:** Log the trained model, parameters, and metrics to MLflow.
+   - **Step 5:** Deploy the pipeline using Docker or integrate it with orchestration tools like Airflow.
+
+   ### Example Pipeline
+   ```python
+   import pandas as pd
+   from sklearn.model_selection import train_test_split
+   from sklearn.ensemble import RandomForestClassifier
+   from sklearn.metrics import accuracy_score
+   import mlflow
+   from sqlalchemy import create_engine
+
+   # Step 1: Connect to the database and extract data
+   engine = create_engine('postgresql://username:password@localhost:5432/mydb')
+   query = "SELECT * FROM loan_data"
+   data = pd.read_sql(query, engine)
+
+   # Step 2: Preprocess the data
+   X = data.drop(columns=['target'])
+   y = data['target']
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+   # Step 3: Train a machine learning model
+   model = RandomForestClassifier()
+   model.fit(X_train, y_train)
+   y_pred = model.predict(X_test)
+
+   # Step 4: Log the model and metrics with MLflow
+   with mlflow.start_run():
+       mlflow.log_metric("accuracy", accuracy_score(y_test, y_pred))
+       mlflow.sklearn.log_model(model, "loan_model")
+
