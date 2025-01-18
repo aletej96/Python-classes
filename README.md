@@ -51,24 +51,19 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
    ```
 ---
 
-## Table of Contents
-1. **Introduction to Python**  
-   Basic Python programming concepts, including variables, data types, loops, conditionals, functions, and more. Designed to get you familiar with Python as a programming language.
+## **Table of Contents**
 
-2. **Introduction to NumPy**  
-   Learn the fundamentals of NumPy, the library for numerical computing. This section covers arrays, operations on arrays, and key functions that enable efficient mathematical calculations.
+1. [Introduction to Python](#introduction-to-python)  
+2. [Introduction to NumPy](#introduction-to-numpy)  
+3. [Introduction to Pandas](#introduction-to-pandas)  
+4. [Introduction to Matplotlib](#introduction-to-matplotlib)  
+5. [Introduction to Scikit-learn](#introduction-to-scikit-learn)  
+6. [Intro to MLflow](#intro-to-mlflow)  
+7. [Dockerization](#dockerization)  
+8. [How to Build and Call an API](#how-to-build-and-call-an-api)  
+9. [Database Connection and MLOps Pipeline](#database-connection-and-mlops-pipeline)
 
-3. **Introduction to Pandas**  
-   Explore how to handle, clean, and manipulate datasets using Pandas. You will learn about DataFrames, series, indexing, filtering, and data aggregation.
-
-4. **Introduction to Matplotlib**  
-   A guide to data visualization using Matplotlib. You will learn how to create different types of plots like line charts, bar charts, histograms, and more to visually represent your data.
-
-5. **Introduction to Scikit-learn**  
-   Dive into machine learning with Scikit-learn. This section introduces basic concepts of supervised and unsupervised learning, model training, and evaluation using popular algorithms.
-
-6. **Intro to MLflow**
-   This section introduces MLflow, a platform to manage the machine learning lifecycle, including experimentation, reproducibility, and deployment. Learn how to track experiments, package code into reusable components, and deploy machine learning models.
+---
 
    ### Install MLflow
    - To install MLflow, use pip:
@@ -117,6 +112,146 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
          mlflow.log_param("param_name", "param_value")
          mlflow.log_metric("metric_name", 0.95)
      ```
+## **1. Introduction to Python**  
+Basic Python programming concepts, including variables, data types, loops, conditionals, functions, and more. Designed to get you familiar with Python as a programming language.
+
+### **Topics Covered**:
+- Variables and Data Types (`int`, `float`, `str`, `list`, `dict`, etc.).
+- Control Flow (`if`, `elif`, `else`).
+- Loops (`for`, `while`).
+- Functions and Modules.
+- File Handling and Error Handling.
+
+### **Example**:
+```python
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))  # Output: 120
+```
+## **2. Introduction to NumPy**  
+Learn the fundamentals of NumPy, the library for numerical computing. This section covers arrays, operations on arrays, and key functions that enable efficient mathematical calculations.
+
+### **Topics Covered**:
+- Creating Arrays.
+- Vectorized Operations.
+- Broadcasting.
+- Mathematical Functions.
+
+### **Example**:
+```python
+import numpy as np
+
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+print(matrix.sum(axis=0))  # Output: [5, 7, 9]
+```
+## **3. Introduction to Pandas**  
+Explore how to handle, clean, and manipulate datasets using Pandas. You will learn about DataFrames, series, indexing, filtering, and data aggregation.
+
+### **Topics Covered**:
+- Creating and Manipulating DataFrames.
+- Filtering and Aggregation.
+- Handling Missing Data.
+
+### **Example**:
+```python
+import pandas as pd
+
+data = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}
+df = pd.DataFrame(data)
+print(df[df['Age'] > 25])
+```
+## **4. Introduction to Matplotlib**  
+A guide to data visualization using Matplotlib. Learn how to create various plots and visually represent your data.
+
+### **Topics Covered**:
+- Creating Basic Plots.
+- Customizing Titles, Axes, and Legends.
+- Creating Advanced Charts.
+
+### **Example**:
+```python
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3]
+y = [4, 5, 6]
+plt.plot(x, y, label='Line')
+plt.legend()
+plt.show()
+```
+## **5. Introduction to Scikit-learn**  
+Dive into machine learning with Scikit-learn. This section introduces basic concepts of supervised and unsupervised learning, model training, and evaluation using popular algorithms.
+
+### **Topics Covered**:
+- Classification and Regression.
+- Unsupervised Learning.
+- Model Evaluation Metrics.
+
+### **Example**:
+```python
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+X, y = [[1], [2], [3]], [0, 1, 0]
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+print(accuracy_score(y_test, model.predict(X_test)))
+```
+## **6. Intro to MLflow**  
+This section introduces MLflow, a platform to manage the machine learning lifecycle, including experimentation, reproducibility, and deployment.
+
+### Install MLflow
+   - To install MLflow, use pip:
+     ```bash
+     pip install mlflow
+     ```
+
+   ### Getting Started with MLflow
+   - **Activate MLflow**:
+     ```bash
+     mlflow server
+     ```
+   - **Set the MLflow Tracking URI**:
+     ```python
+     import mlflow
+     mlflow.set_tracking_uri("http://localhost:5000")
+     ```
+   - **Run an Experiment**:
+     ```python
+     with mlflow.start_run():
+         mlflow.log_metric("key_metric", value)
+         mlflow.log_param("parameter", value)
+     ```
+   - **Start the MLflow Tracking Server**:
+     ```bash
+     mlflow ui
+     ```
+   - This will open the MLflow Tracking UI in your web browser at `http://localhost:5000`, where you can view and compare all your experiments.
+
+   ### Install Additional Dependencies
+   - To ensure all dependencies are installed, you can use the following pip command:
+     ```bash
+     pip install numpy pandas scikit-learn
+     ```
+
+   ### Set Up MLflow Backend (Optional)
+   - If you want to use a remote server or a database as a backend for MLflow, configure the MLflow tracking URI to point to your server:
+     ```python
+     mlflow.set_tracking_uri("your_server_uri")
+     ```
+
+   ### Example Usage
+   - Here’s a simple example of logging a parameter and a metric in MLflow:
+     ```python
+     with mlflow.start_run():
+         mlflow.log_param("param_name", "param_value")
+         mlflow.log_metric("metric_name", 0.95)
+     ```
+
 
 7. **Dockerization**  
    This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a detailed description of how to build and run the Docker container.
