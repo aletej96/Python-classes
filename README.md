@@ -63,55 +63,8 @@ To activate a Conda environment in Visual Studio Code (VSCode), follow these ste
 8. [How to Build and Call an API](#how-to-build-and-call-an-api)  
 9. [Database Connection and MLOps Pipeline](#database-connection-and-mlops-pipeline)
 
----
-
-   ### Install MLflow
-   - To install MLflow, use pip:
-     ```bash
-     pip install mlflow
-     ```
-
-   ### Getting Started with MLflow
-   - **Activate MLflow**:
-     ```bash
-     mlflow server
-     ```
-   - **Set the MLflow Tracking URI**:
-     ```python
-     import mlflow
-     mlflow.set_tracking_uri("http://localhost:5000")
-     ```
-   - **Run an Experiment**:
-     ```python
-     with mlflow.start_run():
-         mlflow.log_metric("key_metric", value)
-         mlflow.log_param("parameter", value)
-     ```
-   - **Start the MLflow Tracking Server**:
-     ```bash
-     mlflow ui
-     ```
-   - This will open the MLflow Tracking UI in your web browser at `http://localhost:5000`, where you can view and compare all your experiments.
-
-   ### Install Additional Dependencies
-   - To ensure all dependencies are installed, you can use the following pip command:
-     ```bash
-     pip install numpy pandas scikit-learn
-     ```
-
-   ### Set Up MLflow Backend (Optional)
-   - If you want to use a remote server or a database as a backend for MLflow, configure the MLflow tracking URI to point to your server:
-     ```python
-     mlflow.set_tracking_uri("your_server_uri")
-     ```
-
-   ### Example Usage
-   - Here’s a simple example of logging a parameter and a metric in MLflow:
-     ```python
-     with mlflow.start_run():
-         mlflow.log_param("param_name", "param_value")
-         mlflow.log_metric("metric_name", 0.95)
-     ```
+---   
+     
 ## **1. Introduction to Python**  
 Basic Python programming concepts, including variables, data types, loops, conditionals, functions, and more. Designed to get you familiar with Python as a programming language.
 
@@ -253,7 +206,7 @@ This section introduces MLflow, a platform to manage the machine learning lifecy
      ```
 
 
-7. **Dockerization**  
+7. ## **Dockerization**  
    This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a detailed description of how to build and run the Docker container.
 
    ### How to Build and Run the Docker Container
