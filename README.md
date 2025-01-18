@@ -206,7 +206,7 @@ This section introduces MLflow, a platform to manage the machine learning lifecy
      ```
 
 
-7. ## **Dockerization**  
+## 7. **Dockerization**  
    This project has been dockerized to facilitate its deployment and execution in any Docker-compatible environment. Below is a detailed description of how to build and run the Docker container.
 
    ### How to Build and Run the Docker Container
