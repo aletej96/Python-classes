@@ -243,7 +243,7 @@ This section introduces MLflow, a platform to manage the machine learning lifecy
           -d '{"columns":["feature1", "feature2"], "data":[[value1, value2]]}'
      ```
 
-8. **How to Build and Call an API**  
+## 8. **How to Build and Call an API**  
    This section demonstrates how to create a simple API using Flask and interact with it.
 
    ### Create the API
@@ -291,7 +291,7 @@ This section introduces MLflow, a platform to manage the machine learning lifecy
      print(response.json())
      ```
 
-9. **Database Connection and MLOps Pipeline**  
+## 9. **Database Connection and MLOps Pipeline**  
    This section demonstrates how to connect to a database, extract data, and create a machine learning pipeline. The pipeline is saved using MLOps practices, ensuring reproducibility and scalability.
 
    ### Steps to Build the Pipeline
