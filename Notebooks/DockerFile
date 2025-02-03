@@ -1,9 +1,12 @@
-FROM python:3.10-slim
-
 COPY requirements.txt .
 
-run pip install -r requirements.txt
+RUN command pip install -r requirements.txt
 
-COPY hello.py . 
+# We use Python 3.11.11 as base
+FROM python:3.11.11-slim
 
-CMD [ "python3", "-c", "print('Hello World!')" ]
+# Instala MLflow y otras dependencias necesarias
+RUN pip install mlflow scikit-learn pandas numpy
+
+# Usa el modelo específico del Run ID
+CMD ["mlflow", "models", "serve", "-m", "runs:/0bca5ad59bec4263afb153183c87dc9c/model", "-h", "0.0.0.0", "-p", "5000"]
